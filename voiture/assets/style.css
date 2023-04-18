@@ -1,0 +1,9 @@
+    .copyright-link {
+      font-family: 'Monsieur La Doulaise', cursive;
+      color: #4299e1;
+      text-decoration: none;
+    }
+
+    .copyright-link:hover {
+      color: #3182ce;
+    }

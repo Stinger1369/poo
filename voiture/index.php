@@ -1,6 +1,6 @@
 <?php
 require_once('classes/Voiture.php');
-include('header.php');
+include('templates/header.php');
 require_once('classes/Personne.php');
 require_once('classes/Fourgon.php');
 ?>
@@ -35,10 +35,10 @@ require_once('classes/Fourgon.php');
     // Tests d'appoint d'essence
     echo '<h2 class="text-2xl font-bold mt-8">Faire l\'appoint d\'essence</h2>';
     echo '<p>Ancien niveau d\'essence : ' . $maVoiture->getNiveauEssence() . ' L</p>';
-    echo '<p>' . $maVoiture->Mettre_essence(10) . '</p>';
-    echo '<p>' . $maVoiture->Mettre_essence(-5) . '</p>';
-    echo '<p>' . $maVoiture->Mettre_essence(100) . '</p>';
-    echo '<p>' . $maVoiture->Mettre_essence(30) . '</p>';
+    echo '<p>Essayer de mettre 10 L: ' . $maVoiture->Mettre_essence(10) . '</p>';
+    echo '<p>Essayer de mettre -5 L: ' . $maVoiture->Mettre_essence(-5) . '</p>';
+    echo '<p>Essayer de mettre 100 L: ' . $maVoiture->Mettre_essence(100) . '</p>';
+    echo '<p>Essayer de mettre 30 L: ' . $maVoiture->Mettre_essence(30) . '</p>';
     echo '<p>Nouveau niveau d\'essence : ' . $maVoiture->getNiveauEssence() . ' L</p>';
 
     // Create a new Voiture object
@@ -76,9 +76,6 @@ require_once('classes/Fourgon.php');
     echo '<p>' . $maVoiture1 . '</p>';
     echo '<p>' . $maVoiture2 . '</p>';
 
-
-
-
     // Instantierr une nouvelle voiture
     $personne = new Personne("Doe", "John");
 
@@ -99,6 +96,11 @@ require_once('classes/Fourgon.php');
     var_dump($maVoiture2);
     ?>
   </div>
+  <?php
+  include('templates/footer.php');
+  displayFooter();
+  ?>
+
 </body>
 
 </html>
