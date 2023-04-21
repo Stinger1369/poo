@@ -1,28 +1,33 @@
 <?php
 
-require_once 'traits/Getters.php';
-require_once 'traits/Setters.php';
+require_once 'Getters.php';
+require_once 'Setters.php';
 
 class Voiture
 {
   // attributs privés
-  private $immatriculation;
-  private $couleur;
-  private $poids;
-  private $puissance;
-  private $capaciteReservoir;
-  private $niveauEssence;
-  private $nombrePlaces;
-  private $assure;
-  private $messageTableauBord;
-
-
+  private string $immatriculation;
+  private string $couleur;
+  private int $poids;
+  private int $puissance;
+  private int $capaciteReservoir;
+  private int $niveauEssence;
+  private int $nombrePlaces;
+  private bool $assure;
+  private string $messageTableauBord;
 
   use Getters;
   use Setters;
 
   // constructeur
-  public function __construct($immatriculation, $couleur, $poids, $puissance, $capaciteReservoir, $nombrePlaces){
+  public function __construct(
+    string $immatriculation,
+    string $couleur,
+    int $poids,
+    int $puissance,
+    int $capaciteReservoir,
+    int $nombrePlaces
+  ) {
     $this->immatriculation = $immatriculation;
     $this->couleur = $couleur;
     $this->poids = $poids;
@@ -34,7 +39,8 @@ class Voiture
     $this->messageTableauBord = "Bienvenue dans votre voiture !";
   }
 
-  public function setAssure($assure){
+  public function setAssure(bool $assure): void
+  {
     $this->assure = $assure;
     if ($assure) {
       $this->messageTableauBord = "Assurance activée";
@@ -43,12 +49,13 @@ class Voiture
     }
   }
 
-  public function setMessageTableauBord($messageTableauBord){
-
+  public function setMessageTableauBord(string $messageTableauBord): void
+  {
     $this->messageTableauBord = $messageTableauBord;
   }
-  // méthode de service : Repeindre
-  public function Repeindre($nouvelleCouleur){
+
+  public function Repeindre(string $nouvelleCouleur): void
+  {
     if (!isset($nouvelleCouleur)) {
       $this->messageTableauBord = "Erreur : la nouvelle couleur est manquante.";
     } elseif ($nouvelleCouleur === $this->couleur) {
@@ -59,29 +66,25 @@ class Voiture
     }
   }
 
-  // méthode pour faire l'appoint d'essence
-  public function Mettre_essence($quantite){
-    // vérification de la quantité
+  public function Mettre_essence(int $quantite): string
+  {
     if (!is_numeric($quantite) || $quantite <= 0) {
       return 'La quantité doit être un nombre positif';
     }
 
-    // calcul de la nouvelle quantité d'essence
     $nouveauNiveauEssence = $this->niveauEssence + $quantite;
 
-    // vérification de la capacité maximale du réservoir
     if ($nouveauNiveauEssence > $this->capaciteReservoir) {
       return 'Le réservoir ne peut pas contenir autant de carburant';
     }
 
-    // mise à jour du niveau d'essence
     $this->niveauEssence = $nouveauNiveauEssence;
 
-    // message de feedback
     return 'Ajout de ' . $quantite . ' L d\'essence. Nouveau niveau : ' . $this->niveauEssence . ' L';
   }
-  // Methode privée pour calculer la consommation en fonction de la vitesse moyenne
-  private function calculerConsommation($vitesseMoyenne){
+
+  private function calculerConsommation(int $vitesseMoyenne): int
+  {
     if (
       $vitesseMoyenne < 50
     ) {
@@ -95,10 +98,9 @@ class Voiture
     }
   }
 
- 
-  public function Se_deplacer($distance, $vitesseMoyenne){
+  public function Se_deplacer(int $distance, int $vitesseMoyenne): string
+  {
     $consommation = $this->calculerConsommation($vitesseMoyenne) * $distance / 100;
-
     if ($this->niveauEssence < $consommation) {
       return "Erreur: Pas assez de carburant pour ce trajet de {$distance} km.";
     } else {
@@ -106,8 +108,9 @@ class Voiture
       return "Trajet de {$distance} km effectué. Consommation : " . $consommation . " L. Niveau d'essence restant : " . $this->niveauEssence . " L";
     }
   }
-  // __toString methode
-  public function __toString(){
+
+  public function __toString(): string
+  {
     return sprintf("Immatriculation: %s, Puissance: %d ch, Couleur: %s", $this->immatriculation, $this->puissance, $this->couleur);
   }
 }
